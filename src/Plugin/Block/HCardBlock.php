@@ -53,50 +53,45 @@ class HCardBlock extends BlockBase implements ContainerFactoryPluginInterface {
   /**
    * {@inheritdoc}
    */
-  public function build(): array {
-    $config = $this->configFactory->get('indieweb_identity.settings');
-    
-    // Parse social links.
-    $raw_links = Yaml::parse($config->get('social_links') ?: '[]');
-    $processed_links = [];
-    if (is_array($raw_links)) {
-      foreach ($raw_links as $link) {
-        $processed_links[] = [
-          'title' => $link['title'] ?? '',
-          'url' => $link['url'] ?? '',
+ /**
+     * {@inheritdoc}
+     */
+    public function build(): array {
+        $config = $this->configFactory->get('indieweb_identity.settings');
+
+        // Since we now store links as an array, no parsing is required.
+        // We just ensure it defaults to an empty array if nothing is set.
+        $social_links = $config->get('social_links') ?: [];
+
+        // Handle avatar URL using injected FileUrlGenerator.
+        $avatarUrl = '';
+        $avatar_data = $config->get('avatar');
+        if (!empty($avatar_data) && is_array($avatar_data)) {
+            $fid = reset($avatar_data);
+            $file = File::load($fid);
+            if ($file) {
+                // Generates absolute URL for external IndieWeb validators.
+                $avatarUrl = $this->fileUrlGenerator->generateAbsoluteString($file->getFileUri());
+            }
+        }
+
+        // Get the site URL from injected RequestStack.
+        $site_url = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost();
+
+        return [
+            '#type' => 'component',
+            '#component' => 'indieweb_identity:h-card',
+            '#props' => [
+                'name'         => $config->get('name'),
+                'url'          => $site_url,
+                'avatar'       => $avatarUrl,
+                'bio'          => $config->get('bio'),
+                'social_links' => $social_links,
+                'display_mode' => 'full',
+                'hidden'       => (bool) $config->get('hidden'),
+            ],
         ];
-      }
     }
-
-    // Handle avatar URL using injected FileUrlGenerator.
-    $avatarUrl = '';
-    $avatar_data = $config->get('avatar');
-    if (!empty($avatar_data) && is_array($avatar_data)) {
-      $fid = reset($avatar_data);
-      $file = File::load($fid);
-      if ($file) {
-        $avatarUrl = $this->fileUrlGenerator->generateAbsoluteString($file->getFileUri());
-      }
-    }
-
-    // Get the site URL from injected RequestStack.
-    $site_url = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost();
-
-    return [
-      '#type' => 'component',
-      '#component' => 'indieweb_identity:h-card',
-      '#props' => [
-        'name'         => $config->get('name'),
-        'url'          => $site_url,
-        'avatar'       => $avatarUrl,
-        'bio'          => $config->get('bio'),
-        'social_links' => $processed_links,
-        'display_mode' => 'full',
-        'hidden'       => (bool) $config->get('hidden'),
-      ],
-    ];
-  }
-
 
 
   /**
