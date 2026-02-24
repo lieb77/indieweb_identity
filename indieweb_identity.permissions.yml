@@ -1,0 +1,4 @@
+administer indieweb identity:
+  title: 'Administer IndieWeb identity'
+  description: 'Set up the representative h-card, bio, and social links.'
+  restrict access: true

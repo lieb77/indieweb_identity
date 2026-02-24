@@ -1,0 +1,6 @@
+indieweb_identity.menu:
+  title: Indieweb Identity Settings
+  description: Configure Indieweb Identity
+  parent: system.admin_config_services
+  route_name: indieweb_identity.settings
+  weight: 10

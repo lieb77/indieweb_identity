@@ -1,0 +1,11 @@
+fontawesome_brands:
+  remote: https://fontawesome.com/
+  version: 7.0.1  # Latest stable in early 2026
+  license:
+    name: MIT
+    url: https://fontawesome.com/license/free
+    gpl-compatible: true
+  css:
+    theme:
+      https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/brands.min.css: { type: external, minified: true }
+      https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/fontawesome.min.css: { type: external, minified: true }

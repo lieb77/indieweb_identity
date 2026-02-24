@@ -1,0 +1,17 @@
+{
+    "name": "lieb77/indieweb_identity",
+    "description": "Provides a machine-readable microformats H-card for sovereign identity.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Paul Lieberman",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "drupal/core": "^10.3 || ^11",
+        "symfony/yaml": "^6.4 || ^7.0"
+    }
+}

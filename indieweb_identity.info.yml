@@ -1,0 +1,11 @@
+name: 'Indieweb Identity'
+type: module
+description: 'Provides a machine-readable microformats H-card for sovereign identity.'
+package: IndieWeb
+core_version_requirement: ^10.3 || ^11
+
+configure: indieweb_identity.settings
+
+dependencies:
+  - drupal:file
+  - drupal:block

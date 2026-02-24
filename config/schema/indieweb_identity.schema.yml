@@ -1,0 +1,8 @@
+# Schema for the configuration files of the Indieweb identity module.
+indieweb_identity.settings:
+  type: config_object
+  label: 'Indieweb identity settings'
+  mapping:
+    example:
+      type: string
+      label: 'Example'

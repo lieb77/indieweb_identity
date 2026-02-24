@@ -1,0 +1,49 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json
+name: H-Card
+description: A Microformats2 h-card component for IndieWeb identity.
+
+props:
+  type: object
+  required:
+    - name
+    - url
+  properties:
+    display_mode:
+      type: string
+      enum: [full, minimal]
+      default: full
+    name:
+      type: string
+      title: Full Name
+    url:
+      type: string
+      title: Site URL
+      format: uri
+    avatar:
+      type: string
+      title: Avatar URL
+      description: The absolute URL to the profile image.
+    bio:
+      type: string
+      title: Bio/Note
+      description: The p-note content for the h-card.
+    hidden:
+      type: boolean
+      title: Hidden Mode
+      default: true
+      description: Whether to apply the visually-hidden class.
+    social_links:
+      type: array
+      title: Social Links
+      items:
+        type: object
+        properties:
+          title:
+            type: string
+          url:
+            type: string
+            format: uri
+
+libraryOverrides:
+  dependencies:
+    - indieweb_identity/fontawesome_brands

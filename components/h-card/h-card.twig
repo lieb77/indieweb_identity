@@ -1,0 +1,10 @@
+{# components/hcard #}
+
+<div class="h-card {{ hidden ? 'visually-hidden' : '' }}"> 
+  <img class="u-photo" src="{{ avatar }}" alt="{{ name }}">
+  <a class="u-url p-name" href="{{ url('<front>', options={'absolute': true}) }}">{{ name }}</a>
+  <p class="p-note">{{ bio }}</p>
+  {% for link in social_links %}
+    <a href="{{ link.url }}" rel="me">{{ link.title }}</a>
+  {% endfor %}
+</div>

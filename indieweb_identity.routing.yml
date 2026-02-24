@@ -1,0 +1,8 @@
+indieweb_identity.settings:
+  path: '/admin/config/services/indieweb/identity'
+  defaults:
+    _title: 'Indieweb Identity Settings'
+    _form: 'Drupal\indieweb_identity\Form\HCardSettingsForm'
+  requirements:
+    _permission: 'administer indieweb identity'
+
