@@ -1,10 +1,41 @@
-{# components/hcard #}
+{# h-card.html.twig #}
+{% set wrapper_classes = [
+  'h-card',
+  hidden ? 'visually-hidden' : 'h-card--styled',
+] %}
 
-<div class="h-card {{ hidden ? 'visually-hidden' : '' }}"> 
-  <img class="u-photo" src="{{ avatar }}" alt="{{ name }}">
-  <a class="u-url p-name" href="{{ url('<front>', options={'absolute': true}) }}">{{ name }}</a>
-  <p class="p-note">{{ bio }}</p>
-  {% for link in social_links %}
-    <a href="{{ link.url }}" rel="me">{{ link.title }}</a>
-  {% endfor %}
+<div {{ attributes.addClass(wrapper_classes) }}>
+    {# 1. Name and URL (Representative check) #}
+    <a class="u-url u-uid p-name" href="{{ url }}">{{ name }}</a>
+
+    {# 2. Avatar - Keep the class clean and direct #}
+    {% if avatar %}
+        <img class="u-photo" src="{{ avatar }}" alt="{{ name }}" />
+    {% endif %}
+
+    {# 3. Nickname #}
+    {% if nickname %}
+        <span class="p-nickname">({{ nickname }})</span>
+    {% endif %}
+
+    {# 4. Bio - Use a simple paragraph #}
+    {% if bio %}
+        <p class="p-note">{{ bio|nl2br }}</p>
+    {% endif %}
+
+    {# 5. Email #}
+    {% if email %}
+        <a class="u-email" href="mailto:{{ email }}">{{ email }}</a>
+    {% endif %}
+
+    {# 6. Social Links #}
+    {% if social_links %}
+        <ul class="social-links">
+            {% for link in social_links %}
+                <li>
+                    <a class="u-url" href="{{ link.url }}" rel="me">{{ link.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </div>

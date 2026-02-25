@@ -6,3 +6,97 @@
   clip: rect(1px, 1px, 1px, 1px);
   white-space: nowrap;
 }
+
+/* Only apply styles when the card is NOT hidden */
+.h-card--styled {
+  --card-bg: #ffffff;
+  --text-main: #2d3436;
+  --accent: #0984e3;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 2rem;
+  border-radius: 12px;
+  background: var(--card-bg);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+  margin: 1rem auto;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+/* The Photo/Avatar */
+.h-card--styled .u-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  order: -1; /* Keeps photo at the very top */
+}
+
+/* Name and URL */
+.h-card--styled .p-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.h-card--styled .p-name:hover {
+  color: var(--accent);
+}
+
+/* Nickname */
+.h-card--styled .p-nickname {
+  font-size: 0.9rem;
+  color: #636e72;
+  display: block;
+  margin-top: -8px;
+}
+
+/* Bio/Note */
+.h-card--styled .p-note {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #2d3436;
+  margin: 0.5rem 0;
+}
+
+/* Email */
+.h-card--styled .u-email {
+  font-size: 0.9rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* Social Links List */
+.h-card--styled .social-links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1rem;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+  width: 100%;
+}
+
+.h-card--styled .social-links a {
+  font-size: 0.85rem;
+  background: #f1f2f6;
+  padding: 4px 10px;
+  border-radius: 4px;
+  color: #2f3542;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.h-card--styled .social-links a:hover {
+  background: var(--accent);
+  color: #fff;
+}

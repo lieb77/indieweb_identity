@@ -15,6 +15,13 @@ props:
     name:
       type: string
       title: Full Name
+    nickname:
+      type: string
+      title: Nickname
+    email:
+      type: string
+      title: Email
+      format: email
     url:
       type: string
       title: Site URL
@@ -37,13 +44,11 @@ props:
       title: Social Links
       items:
         type: object
+        required:
+          - url
         properties:
           title:
             type: string
           url:
             type: string
             format: uri
-
-libraryOverrides:
-  dependencies:
-    - indieweb_identity/fontawesome_brands
