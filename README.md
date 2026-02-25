@@ -2,7 +2,7 @@
 
 ## INTRODUCTION
 
-The Indieweb Identity module provides a centralized system for managing your **Representative h-card**. It decouples your digital identity from your theme, allowing you to manage your profile data (name, bio, avatar, and social links) via a secure administrative interface and output it as a machine-readable Microformats2 component.
+The Indieweb Identity module provides a centralized system for managing your **Representative h-card**. It provides a settings form to manage your profile data (name, bio, avatar, and social links), and exposes the data via a block using a single directory component to output it as a machine-readable Microformats2 component.
 
 The primary use cases for this module are:
 
@@ -12,16 +12,11 @@ The primary use cases for this module are:
 
 ## REQUIREMENTS
 
-This module requires the following Drupal core modules:
-
-- **File:** For managing and serving the identity avatar.
-- **Block:** For placing the H-card component on your site.
-- **SDC (Single Directory Components):** Used to render the Microformats2 markup.
+Drupal core ^11.3
 
 ## INSTALLATION
 
-Install as you would normally install a contributed Drupal module.
-See: https://www.drupal.org/node/895232 for further information.
+Install via composer
 
 ## CONFIGURATION
 
