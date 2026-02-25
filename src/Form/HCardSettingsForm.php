@@ -120,7 +120,7 @@ final class HCardSettingsForm extends ConfigFormBase {
         $form['hidden'] = [
             '#type'  => 'checkbox',
             '#title' => $this->t('Hidden'),
-            '#description' => $this->t('Should the h-card be visually hidden?'),
+            '#description' => $this->t('Hide visually by default'),
             '#default_value' => $config->get('hidden') ?? TRUE,
         ];
 

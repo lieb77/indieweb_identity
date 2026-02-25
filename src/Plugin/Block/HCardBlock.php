@@ -10,6 +10,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\file\Entity\File;
+use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -58,8 +59,18 @@ class HCardBlock extends BlockBase implements ContainerFactoryPluginInterface {
      * {@inheritdoc}
      */
     public function build(): array {
-        $config = $this->configFactory->get('indieweb_identity.settings');
-
+		$config = $this->configFactory->get('indieweb_identity.settings');
+		$block_config = $this->getConfiguration();
+		
+		// Get the global setting (default to true/hidden if not set)
+		$global_hidden = $config->get('hidden');
+		
+		// Get the block override (default to false if not set)
+		$force_visible = !empty($block_config['force_visible']);
+		
+		// It is only hidden if the global says 'hide' AND we aren't forcing it to show.
+		$is_hidden = $global_hidden && !$force_visible;
+		
         // We use the array directly from config.
         $social_links = $config->get('social_links') ?: [];
 
@@ -91,10 +102,37 @@ class HCardBlock extends BlockBase implements ContainerFactoryPluginInterface {
 		        'email'        => $config->get('email'),    
                 'social_links' => $social_links,
                 'display_mode' => 'full',
-                'hidden'       => (bool) $config->get('hidden'),
+                'hidden'       => $is_hidden,
             ],
         ];
     }
+
+	/**
+	* {@inheritdoc}
+	*/
+	public function blockForm($form, FormStateInterface $form_state) {
+		$form = parent::blockForm($form, $form_state);
+		$config = $this->getConfiguration();
+		
+		$form['force_visible'] = [
+			'#type' => 'checkbox',
+			'#title' => $this->t('Force visibility'),
+			'#default_value' => $config['force_visible'] ?? 0,
+			'#description' => $this->t('Ignore global "hidden" setting for this specific block instance.'),
+		];
+		
+		return $form;
+	}
+	
+	/**
+	* {@inheritdoc}
+	*/
+	public function blockSubmit($form, FormStateInterface $form_state) {
+		// You pull the value from the $form_state object here
+		$this->setConfigurationValue('force_visible', $form_state->getValue('force_visible'));
+	}
+	
+	
 
     /**
      * {@inheritdoc}
